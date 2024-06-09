@@ -7,7 +7,7 @@ pygame.init()
 
 # the width and height for the bord in game
 WIDTH = 900
-HEIGHT = 950
+HEIGHT = 950 g
 secreen = pygame.display.set_mode((WIDTH, HEIGHT)) # secreen : the secreen in game
 timer = pygame.time.Clock() # the speed it will game runs
 fps = 60 # the max speed in the game
