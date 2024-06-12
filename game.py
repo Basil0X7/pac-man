@@ -29,6 +29,20 @@ flicker = False
 turns_allowed = [False, False ,False, False]
 direction_command = 0
 player_speed = 2
+score = 0
+
+def check_collisions(points):
+    num1 = (HEIGHT - 50) // 32
+    num2 = WIDTH // 30
+    if 0 < player_x < 870:
+        if level[center_y // num1][center_x // num2] == 1:
+            level[center_y // num1][center_x // num2] = 0
+            points += 10
+        if level[center_y // num1][center_x // num2] == 2:
+            level[center_y // num1][center_x // num2] = 0
+            points += 50
+
+    return points
 
 # function will convert numbers to images
 def draw_board():
@@ -160,6 +174,7 @@ while run:
     center_y = player_y + 24
     turns_allowed = check_position(center_x, center_y)
     player_x, player_y = move_player(player_x, player_y)
+    score = check_collisions(score)
 
     # when game will be to stop
     for event in pygame.event.get():
@@ -186,15 +201,9 @@ while run:
             if event.key == pygame.K_DOWN and direction_command == 3:
                 direction_command = direction
 
-        #for i in range(4):
-        if direction_command == 0 and turns_allowed[0]:
-             direction = 0
-        if direction_command == 1 and turns_allowed[1]:
-             direction = 1
-        if direction_command == 2 and turns_allowed[2]:
-             direction = 2
-        if direction_command == 3 and turns_allowed[3]:
-             direction = 3
+    for i in range(4):
+        if direction_command == i and turns_allowed[i]:
+            direction = i
 
 
         if player_x > 900:
