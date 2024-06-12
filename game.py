@@ -30,8 +30,13 @@ turns_allowed = [False, False ,False, False]
 direction_command = 0
 player_speed = 2
 score = 0
+monster_up = False
+monster_counter = 0
+eaten_ghosts = [False, False, False, False]
+moving = False
+startup_counter = 0
 
-def check_collisions(points):
+def check_collisions(points, monster, monster_count, eaten_ghost):
     num1 = (HEIGHT - 50) // 32
     num2 = WIDTH // 30
     if 0 < player_x < 870:
@@ -41,8 +46,17 @@ def check_collisions(points):
         if level[center_y // num1][center_x // num2] == 2:
             level[center_y // num1][center_x // num2] = 0
             points += 50
+            monster = False
+            monster_count = 0
+            eaten_ghost = [False, False, False, False]
 
-    return points
+    return points, monster, monster_count, eaten_ghost
+
+def make_misc():
+    score_text = front.render(f'Score: {score}', True, 'white')
+    secreen.blit(score_text, (10, 920))
+
+
 
 # function will convert numbers to images
 def draw_board():
@@ -166,15 +180,29 @@ while run:
     else:
         counter = 0
         flicker = True
+    if monster_up and monster_counter < 600:
+        monster_counter +=1
+    elif monster_up and monster_counter >= 600:
+        monster_counter = 0
+        monster_up = False
+        eaten_ghosts = [False, False, False, False]
+    if startup_counter < 180:
+        moving = False
+        startup_counter +=1
+    else:
+        moving = True
+
 
     secreen.fill('black')
     draw_board()
     draw_player()
+    make_misc()
     center_x = player_x + 23
     center_y = player_y + 24
     turns_allowed = check_position(center_x, center_y)
-    player_x, player_y = move_player(player_x, player_y)
-    score = check_collisions(score)
+    if moving:
+        player_x, player_y = move_player(player_x, player_y)
+    score, monster, monster_counter, eaten_ghosts = check_collisions(score, monster_up, monster_counter, eaten_ghosts)
 
     # when game will be to stop
     for event in pygame.event.get():
