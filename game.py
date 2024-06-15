@@ -28,15 +28,19 @@ dead_img = player_images.append(pygame.transform.scale(pygame.image.load(f'asset
 player_x = 450
 player_y = 663
 direction = 0
-plinky_x = 56
-plinky_y = 58
-plinky_direction = 0
+
+blinky_x = 56
+blinky_y = 58
+blinky_direction = 0
+
 pinky_x = 440
 pinky_y = 388
 pinky_direction = 2
+
 inky_x = 440
 inky_y = 438
 inky_direction = 2
+
 clyde_x = 440
 clyde_y = 438
 clyde_direction = 2
@@ -47,13 +51,53 @@ flicker = False
 turns_allowed = [False, False ,False, False]
 direction_command = 0
 player_speed = 2
+ghost_speed = 2
 score = 0
 monster_up = False
 monster_counter = 0
 eaten_ghosts = [False, False, False, False]
+
+targets = [(player_x, player_y), (player_x, player_y), (player_x, player_y), (player_x, player_y)]\
+
+blinky_dead = False
+pinky_dead = False
+inky_dead = False
+clyde_dead = False
+
+blinky_box = False
+pinky_box = False
+inky_box = False
+clyde_box = False
 moving = False
 startup_counter = 0
 lives = 3
+
+class Ghost:
+    def __init__(self, x, y, target, speed, img, direct, dead, box, id):
+        self.x_pos = x
+        self.y_pos = y
+        self.center_x = self.x_pos + 22
+        self.center_y = self.y_pos + 22
+        self.target = target
+        self.speed = speed
+        self.img = img
+        self.in_box = box
+        self.id = id
+        self.turns, self.in_box = self.check_collisions()
+        self.rect = self.draw()
+
+    def draw(self):
+        if (not monster_up and not self.dead) or (eaten_ghosts[self.id] and monster_up and not self.dead):
+            secreen.blit(self.img, (self.x_pos, self.y_pos))
+        elif monster_up and not self.dead and not eaten_ghosts[self.id]:
+            secreen.blit(spooked_img, (self.x_pos, self.y_pos))
+        else:
+            secreen.blit(dead_img, (self.x_pos, self.y_pos))
+        ghost_rect = pygame.rect.Rect(self.x_pos - 18, self.y_pos - 18, (36, 36))
+        return ghost_rect
+
+    def check_collisions(self):
+        return self.turns, self.in_box
 
 def check_collisions(points, monster, monster_count, eaten_ghost):
     num1 = (HEIGHT - 50) // 32
@@ -218,6 +262,15 @@ while run:
     secreen.fill('black')
     draw_board()
     draw_player()
+    blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed, blinky_img,
+                   blinky_direction, blinky_dead, blinky_box, 0)
+    inky = Ghost(inky_x, inky_y, targets[1], ghost_speed, inky_img,
+                 inky_direction, inky_dead, inky_box, 1)
+    pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speed, pinky_img,
+                 pinky_direction, pinky_dead, pinky_box, 2)
+    clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed, clyde_img,
+                 clyde_direction, clyde_dead, clyde_box, 3)
+
     draw_misc()
     center_x = player_x + 23
     center_y = player_y + 24
