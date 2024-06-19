@@ -12,7 +12,7 @@ timer = pygame.time.Clock() # the speed it will game runs
 fps = 60 # the max speed in the game
 font = pygame.font.Font('freesansbold.ttf', 20) # the score, game over, start
 level = boards
-color = 'red'
+color = 'blue'
 PI = math.pi
 
 # Load player images
@@ -20,6 +20,7 @@ player_images = []
 for i in range(1, 5):
     player_images.append(pygame.transform.scale(pygame.image.load(f'assets/player_images/{i}.png'), (45, 45)))
 
+andrew_tat_img = pygame.transform.scale(pygame.image.load(f'assets/andrew_tat_images/Andrew-Tate-PNG-File.png'), (40, 40))
 # Load ghost images
 blinky_img = pygame.transform.scale(pygame.image.load(f'assets/ghost_images/red.png'), (45, 45))
 pinky_img = pygame.transform.scale(pygame.image.load(f'assets/ghost_images/pink.png'), (45, 45))
@@ -216,7 +217,11 @@ def draw_board():
             if level[i][j] == 1:
                 pygame.draw.circle(screen, "white", (j * num2 + (0.5 * num2), i * num1 + (0.5 * num1)), 4)
             if level[i][j] == 2 and not flicker:
-                pygame.draw.circle(screen, "yellow", (j * num2 + (0.5 * num2), i * num1 + (0.5 * num1)), 12)
+                #pygame.draw.circle(screen, "yellow", (j * num2 + (0.5 * num2), i * num1 + (0.5 * num1)), 12)
+                img_x = j * num2 + (0.5 * num2) - 25  # Subtract 25 to move left
+                img_y = i * num1 + (0.5 * num1) - 25  # Subtract 25 to move up
+                screen.blit(andrew_tat_img, (img_x, img_y))
+
             if level[i][j] == 3:
                 pygame.draw.line(screen, color, (j * num2 + (0.5 * num2), i * num1), (j * num2 + (0.5 * num2), i * num1 + num1), 3)
             if level[i][j] == 4:
@@ -306,11 +311,11 @@ while run:
     timer.tick(fps)
     if counter < 19:
         counter += 1
-        if counter > 4:
-            flicker = False
+        #if counter > 0:
+        #flicker = False
     else:
         counter = 0
-        flicker = True
+        #flicker = True
     if monster_up and monster_counter < 600:
         monster_counter += 1
     elif monster_up and monster_counter >= 600:
