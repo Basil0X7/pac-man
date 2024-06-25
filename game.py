@@ -184,6 +184,148 @@ class Ghost:
 
         return self.turns, self.in_box
 
+    def move_clyde(self):
+        # r, l, u, d
+        if self.direct == 0:
+            if self.turns[0] > self.x_pos and self.turns[0]:
+                self.x_pos += self.speed
+            elif not self.turns[0]:
+                if self.turns[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                elif self.turns[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                elif self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+            elif self.turns[0]:
+                if self.turns[1] > self.y_pos and self.turns[3]:
+                    self.direct = 1
+                    self.y_pos += self.speed
+                if self.turns[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos += self.speed
+
+        elif self.direct == 1:
+            if self.target[1] > self.y_pos and self.target[3]:
+                self.direct = 3
+            elif self.turns[0] < self.x_pos and self.turns[1]:
+                self.x_pos -= self.speed
+            elif not self.turns[1]:
+                if self.turns[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                elif self.turns[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+            elif self.turns[1]:
+                if self.turns[1] > self.y_pos and self.turns[3]:
+                    self.direct = 1
+                    self.y_pos += self.speed
+                if self.turns[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos -= self.speed
+
+        elif self.direct == 2:
+            if self.target[0] < self.x_pos and self.target[1]:
+                self.direct = 1
+                self.x_pos -= self.speed
+            elif self.target[1] < self.y_pos and self.turns[2]:
+                self.y_pos -= self.speed
+            elif not self.turns[2]:
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                elif self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+            elif self.turns[2]:
+                if self.turns[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.turns[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                else:
+                    self.y_pos -= self.speed
+
+        elif self.direct == 3:
+            if self.target[0] > self.x_pos and self.target[0]:
+                self.direct = 0
+                self.x_pos += self.speed
+            elif self.target[0] < self.x_pos and self.target[1]:
+                self.direct = 1
+                self.x_pos -= self.speed
+            elif self.target[1] < self.y_pos and self.turns[2]:
+                self.y_pos -= self.speed
+            elif not self.turns[2]:
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                elif self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+            elif self.turns[2]:
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                else:
+                    self.y_pos -= self.speed
+
+
 def check_collisions(points, monster, monster_count, eaten_ghost):
     num1 = (HEIGHT - 50) // 32
     num2 = WIDTH // 30
