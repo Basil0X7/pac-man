@@ -12,7 +12,7 @@ timer = pygame.time.Clock() # the speed it will game runs
 fps = 60 # the max speed in the game
 font = pygame.font.Font('freesansbold.ttf', 20) # the score, game over, start
 level = boards
-color = 'blue'
+color = 'green'
 PI = math.pi
 
 # Load player images
