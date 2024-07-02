@@ -471,7 +471,7 @@ def get_targets(bl_x, bl_y, pi_x, pi_y, in_x, in_y, cl_x, cl_y):
         else:
             ink_target = return_target
         if not clyde_dead:
-            clyd_target = (450, 450)
+            clyd_target = (450, 451)
         else:
             clyd_target = return_target
     else:
