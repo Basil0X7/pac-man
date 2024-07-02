@@ -112,68 +112,66 @@ class Ghost:
         num1 = ((HEIGHT - 50)//32)
         num2 = (WIDTH // 30)
         num3 = 15
-
-        if self.center_x // 30 < 29:
-            if level[self.center_y//num1][(self.center_x - num3)//num2] < 3 \
-                    or (level[self.center_y//num1][(self.center_x - num3)//num2] == 9 and (
-                        self.in_box or self.dead)):
+        self.turns = [False, False, False, False]
+        if 0 < self.center_x // 30 < 29:
+            if level[(self.center_y - num3) // num1][self.center_x // num2] == 9:
+                self.turns[2] = True
+            if level[self.center_y // num1][(self.center_x - num3) // num2] < 3 \
+                    or (level[self.center_y // num1][(self.center_x - num3) // num2] == 9 and (
+                    self.in_box or self.dead)):
                 self.turns[1] = True
-
-            if level[self.center_y//num1][(self.center_x + num3)//num2] < 3 \
-                    or (level[self.center_y//num1][(self.center_x + num3)//num2] == 9 and (
-                        self.in_box or self.dead)):
+            if level[self.center_y // num1][(self.center_x + num3) // num2] < 3 \
+                    or (level[self.center_y // num1][(self.center_x + num3) // num2] == 9 and (
+                    self.in_box or self.dead)):
                 self.turns[0] = True
-
-            if level[(self.center_y + num3)//num1][self.center_x //num2] < 3 \
-                    or (level[(self.center_y + num3)//num1][self.center_x//num2] == 9 and (
-                        self.in_box or self.dead)):
+            if level[(self.center_y + num3) // num1][self.center_x // num2] < 3 \
+                    or (level[(self.center_y + num3) // num1][self.center_x // num2] == 9 and (
+                    self.in_box or self.dead)):
                 self.turns[3] = True
-
-            if level[(self.center_y - num3)//num1][self.center_x //num2] < 3 \
-                    or (level[(self.center_y - num3)//num1][self.center_x//num2] == 9 and (
-                        self.in_box or self.dead)):
+            if level[(self.center_y - num3) // num1][self.center_x // num2] < 3 \
+                    or (level[(self.center_y - num3) // num1][self.center_x // num2] == 9 and (
+                    self.in_box or self.dead)):
                 self.turns[2] = True
 
             if self.direct == 2 or self.direct == 3:
                 if 12 <= self.center_x % num2 <= 18:
-                    if level[(self.center_y + num3)//num1][self.center_x//num2] < 3 \
-                        or (level[(self.center_y + num3)//num1][self.center_x//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[(self.center_y + num3) // num1][self.center_x // num2] < 3 \
+                            or (level[(self.center_y + num3) // num1][self.center_x // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[3] = True
-                    if level[(self.center_y - num3)//num1][self.center_x//num2] < 3 \
-                        or (level[(self.center_y - num3)//num1][self.center_x//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[(self.center_y - num3) // num1][self.center_x // num2] < 3 \
+                            or (level[(self.center_y - num3) // num1][self.center_x // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[2] = True
                 if 12 <= self.center_y % num1 <= 18:
-                    if level[self.center_y//num1][(self.center_x + num2)//num2] < 3 \
-                        or (level[self.center_y//num1][(self.center_x + num2)//num2] == 9 and
-                            (self.in_box or self.dead)):
-                        self.turns[0] = True
-                    if level[self.center_y//num1][(self.center_x - num2)//num2] < 3 \
-                        or (level[self.center_y//num1][(self.center_x - num2)//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[self.center_y // num1][(self.center_x - num2) // num2] < 3 \
+                            or (level[self.center_y // num1][(self.center_x - num2) // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[1] = True
-
+                    if level[self.center_y // num1][(self.center_x + num2) // num2] < 3 \
+                            or (level[self.center_y // num1][(self.center_x + num2) // num2] == 9 and (
+                            self.in_box or self.dead)):
+                        self.turns[0] = True
 
             if self.direct == 0 or self.direct == 1:
                 if 12 <= self.center_x % num2 <= 18:
-                    if level[(self.center_y + num3)//num1][self.center_x//num2] < 3 \
-                        or (level[(self.center_y + num3)//num1][self.center_x//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[(self.center_y + num3) // num1][self.center_x // num2] < 3 \
+                            or (level[(self.center_y + num3) // num1][self.center_x // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[3] = True
-                    if level[(self.center_y - num3)//num1][self.center_x//num2] < 3 \
-                        or (level[(self.center_y - num3)//num1][self.center_x//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[(self.center_y - num3) // num1][self.center_x // num2] < 3 \
+                            or (level[(self.center_y - num3) // num1][self.center_x // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[2] = True
                 if 12 <= self.center_y % num1 <= 18:
-                    if level[self.center_y//num1][(self.center_x + num3)//num2] < 3 \
-                        or (level[self.center_y//num1][(self.center_x + num3)//num2] == 9 and
-                            (self.in_box or self.dead)):
-                        self.turns[0] = True
-                    if level[self.center_y//num1][(self.center_x - num3)//num2] < 3 \
-                        or (level[self.center_y//num1][(self.center_x - num3)//num2] == 9 and
-                            (self.in_box or self.dead)):
+                    if level[self.center_y // num1][(self.center_x - num3) // num2] < 3 \
+                            or (level[self.center_y // num1][(self.center_x - num3) // num2] == 9 and (
+                            self.in_box or self.dead)):
                         self.turns[1] = True
+                    if level[self.center_y // num1][(self.center_x + num3) // num2] < 3 \
+                            or (level[self.center_y // num1][(self.center_x + num3) // num2] == 9 and (
+                            self.in_box or self.dead)):
+                        self.turns[0] = True
         else:
             self.turns[0] = True
             self.turns[1] = True
@@ -322,7 +320,7 @@ class Ghost:
         if self.x_pos < -30:
             self.x_pos = 900
         elif self.x_pos > 900:
-            self.x_pos - 30
+            self.x_pos = 30
         return self.x_pos, self.y_pos, self.direct
 
 
@@ -336,7 +334,7 @@ def check_collisions(points, monster, monster_count, eaten_ghost):
         if level[center_y // num1][center_x // num2] == 2:
             level[center_y // num1][center_x // num2] = 0
             points += 50
-            monster = False
+            monster = True
             monster_count = 0
             eaten_ghost = [False, False, False, False]
 
@@ -471,7 +469,7 @@ def get_targets(bl_x, bl_y, pi_x, pi_y, in_x, in_y, cl_x, cl_y):
         else:
             ink_target = return_target
         if not clyde_dead:
-            clyd_target = (450, 451)
+            clyd_target = (450, 450)
         else:
             clyd_target = return_target
     else:
@@ -532,6 +530,9 @@ while run:
     screen.fill('black')
     draw_board()
     draw_player()
+    center_x = player_x + 23
+    center_y = player_y + 24
+    player_circle = pygame.draw.circle(screen, 'purple', (center_x, center_y), 21, 2)
     blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed, blinky_img, blinky_direction, blinky_dead, blinky_box, 0)
     inky = Ghost(inky_x, inky_y, targets[1], ghost_speed, inky_img, inky_direction, inky_dead, inky_box, 1)
     pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speed, pinky_img, pinky_direction, pinky_dead, pinky_box, 2)
@@ -539,8 +540,7 @@ while run:
 
     draw_misc()
     targets = get_targets(blinky_x, blinky_y, pinky_x, pinky_y, inky_x, inky_y, clyde_x, clyde_y)
-    center_x = player_x + 23
-    center_y = player_y + 24
+
     turns_allowed = check_position(center_x, center_y)
     if moving:
         player_x, player_y = move_player(player_x, player_y)
@@ -583,3 +583,5 @@ while run:
 
     pygame.display.flip()
 pygame.quit()
+
+
