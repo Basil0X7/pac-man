@@ -12,7 +12,7 @@ timer = pygame.time.Clock() # the speed it will game runs
 fps = 60 # the max speed in the game
 font = pygame.font.Font('freesansbold.ttf', 20) # the score, game over, start
 level = boards
-color = 'green'
+color = 'blue'
 PI = math.pi
 
 # Load player images
@@ -187,16 +187,16 @@ class Ghost:
     def move_clyde(self):
         # r, l, u, d
         if self.direct == 0:
-            if self.turns[0] > self.x_pos and self.turns[0]:
+            if self.target[0] > self.x_pos and self.turns[0]:
                 self.x_pos += self.speed
             elif not self.turns[0]:
-                if self.turns[1] > self.y_pos and self.turns[3]:
+                if self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
-                elif self.turns[1] < self.y_pos and self.turns[2]:
+                elif self.target[1] < self.y_pos and self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
-                elif self.turns[0] < self.x_pos and self.turns[1]:
+                elif self.target[0] < self.x_pos and self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
                 elif self.turns[3]:
@@ -209,28 +209,28 @@ class Ghost:
                     self.direct = 1
                     self.x_pos -= self.speed
             elif self.turns[0]:
-                if self.turns[1] > self.y_pos and self.turns[3]:
-                    self.direct = 1
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
                     self.y_pos += self.speed
-                if self.turns[1] < self.y_pos and self.turns[2]:
+                if self.target[1] < self.y_pos and self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
                 else:
                     self.x_pos += self.speed
 
         elif self.direct == 1:
-            if self.target[1] > self.y_pos and self.target[3]:
+            if self.target[1] > self.y_pos and self.turns[3]:
                 self.direct = 3
-            elif self.turns[0] < self.x_pos and self.turns[1]:
+            elif self.target[0] < self.x_pos and self.turns[1]:
                 self.x_pos -= self.speed
             elif not self.turns[1]:
-                if self.turns[1] > self.y_pos and self.turns[3]:
+                if self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
-                elif self.turns[1] < self.y_pos and self.turns[2]:
+                elif self.target[1] < self.y_pos and self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
-                elif self.turns[0] > self.x_pos and self.turns[0]:
+                elif self.target[0] > self.x_pos and self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
                 elif self.turns[3]:
@@ -243,8 +243,8 @@ class Ghost:
                     self.direct = 0
                     self.x_pos += self.speed
             elif self.turns[1]:
-                if self.turns[1] > self.y_pos and self.turns[3]:
-                    self.direct = 1
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
                     self.y_pos += self.speed
                 if self.turns[1] < self.y_pos and self.turns[2]:
                     self.direct = 2
@@ -253,10 +253,11 @@ class Ghost:
                     self.x_pos -= self.speed
 
         elif self.direct == 2:
-            if self.target[0] < self.x_pos and self.target[1]:
+            if self.target[0] < self.x_pos and self.turns[1]:
                 self.direct = 1
                 self.x_pos -= self.speed
             elif self.target[1] < self.y_pos and self.turns[2]:
+                self.direct = 2
                 self.y_pos -= self.speed
             elif not self.turns[2]:
                 if self.target[0] > self.x_pos and self.turns[0]:
@@ -278,44 +279,38 @@ class Ghost:
                     self.direct = 0
                     self.x_pos += self.speed
             elif self.turns[2]:
-                if self.turns[0] > self.x_pos and self.turns[0]:
+                if self.target[0] > self.x_pos and self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-                elif self.turns[0] < self.x_pos and self.turns[1]:
+                elif self.target[0] < self.x_pos and self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
                 else:
                     self.y_pos -= self.speed
 
         elif self.direct == 3:
-            if self.target[0] > self.x_pos and self.target[0]:
-                self.direct = 0
-                self.x_pos += self.speed
-            elif self.target[0] < self.x_pos and self.target[1]:
-                self.direct = 1
-                self.x_pos -= self.speed
-            elif self.target[1] < self.y_pos and self.turns[2]:
-                self.y_pos -= self.speed
-            elif not self.turns[2]:
+            if self.target[1] > self.y_pos and self.turns[3]:
+                self.y_pos += self.speed
+            elif not self.turns[3]:
                 if self.target[0] > self.x_pos and self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
                 elif self.target[0] < self.x_pos and self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
-                elif self.target[1] > self.y_pos and self.turns[3]:
-                    self.direct = 3
-                    self.y_pos += self.speed
-                elif self.turns[3]:
-                    self.direct = 3
-                    self.y_pos += self.speed
+                elif self.target[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                elif self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
                 elif self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
                 elif self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-            elif self.turns[2]:
+            elif self.turns[3]:
                 if self.target[0] > self.x_pos and self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
@@ -323,7 +318,12 @@ class Ghost:
                     self.direct = 1
                     self.x_pos -= self.speed
                 else:
-                    self.y_pos -= self.speed
+                    self.y_pos += self.speed
+        if self.x_pos < -30:
+            self.x_pos = 900
+        elif self.x_pos > 900:
+            self.x_pos - 30
+        return self.x_pos, self.y_pos, self.direct
 
 
 def check_collisions(points, monster, monster_count, eaten_ghost):
@@ -369,15 +369,15 @@ def draw_board():
             if level[i][j] == 4:
                 pygame.draw.line(screen, color, (j * num2, i * num1 + (0.5 * num2)), (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
             if level[i][j] == 5:
-                pygame.draw.arc(screen, color, [(j * num2 - (num2 * 0.4)) - 2, (i * num1 + (num1 * 0.5)), num2, num1], 0, PI / 2, 3)
+                pygame.draw.arc(screen, "yellow", [(j * num2 - (num2 * 0.4)) - 2, (i * num1 + (num1 * 0.5)), num2, num1], 0, PI / 2, 3)
             if level[i][j] == 6:
-                pygame.draw.arc(screen, color, [(j * num2 + (num2 * 0.5)), (i * num1 + (num1 * 0.5)), num2, num1], PI / 2, PI, 3)
+                pygame.draw.arc(screen, "yellow", [(j * num2 + (num2 * 0.5)), (i * num1 + (num1 * 0.5)), num2, num1], PI / 2, PI, 3)
             if level[i][j] == 7:
-                pygame.draw.arc(screen, color, [(j * num2 + (num2 * 0.5)), (i * num1 - (num1 * 0.4)), num2, num1], PI, 3 * PI / 2, 3)
+                pygame.draw.arc(screen, "yellow", [(j * num2 + (num2 * 0.5)), (i * num1 - (num1 * 0.4)), num2, num1], PI, 3 * PI / 2, 3)
             if level[i][j] == 8:
-                pygame.draw.arc(screen, color, [(j * num2 - (num2 * 0.4)), (i * num1 - (num1 * 0.4)), num2, num1], 3 * PI / 2, 2 * PI, 3)
+                pygame.draw.arc(screen, "yellow", [(j * num2 - (num2 * 0.4)), (i * num1 - (num1 * 0.4)), num2, num1], 3 * PI / 2, 2 * PI, 3)
             if level[i][j] == 9:
-                pygame.draw.line(screen, 'white', (j * num2, i * num1 + (0.5 * num2)), (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
+                pygame.draw.line(screen, 'yellow', (j * num2, i * num1 + (0.5 * num2)), (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
 
 def draw_player():
     if direction == 0:
@@ -479,11 +479,16 @@ while run:
     clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed, clyde_img, clyde_direction, clyde_dead, clyde_box, 3)
 
     draw_misc()
+
     center_x = player_x + 23
     center_y = player_y + 24
     turns_allowed = check_position(center_x, center_y)
     if moving:
         player_x, player_y = move_player(player_x, player_y)
+        blinky_x, blinky_y, blinky_direction = blinky.move_clyde()
+        pinky_x, pinky_y, pinky_direction = pinky.move_clyde()
+        inky_x, inky_y, inky_direction = inky.move_clyde()
+        clyde_x, clyde_y, clyde_direction = clyde.move_clyde()
     score, monster_up, monster_counter, eaten_ghosts = check_collisions(score, monster_up, monster_counter, eaten_ghosts)
 
     for event in pygame.event.get():
