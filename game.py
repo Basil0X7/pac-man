@@ -447,6 +447,65 @@ def move_player(play_x, play_y):
         play_y += player_speed
     return play_x, play_y
 
+def get_targets(bl_x, bl_y, pi_x, pi_y, in_x, in_y, cl_x, cl_y):
+    if player_x < 450:
+        runaway_x = 900
+    else:
+        runaway_x = 0
+    if player_y < 450:
+        runaway_y = 900
+    else:
+        runaway_y = 0
+    return_target = (300, 400)
+    if monster_up:
+        if not blinky_dead:
+            blink_target = (runaway_x, runaway_y)
+        else:
+            blink_target = return_target
+        if not pinky_dead:
+            pink_target = (runaway_x, runaway_y)
+        else:
+            pink_target = return_target
+        if not inky_dead:
+            ink_target = (runaway_x, runaway_y)
+        else:
+            ink_target = return_target
+        if not clyde_dead:
+            clyd_target = (450, 450)
+        else:
+            clyd_target = return_target
+    else:
+        if not blinky_dead:
+            if 340 < bl_x < 560 and 380 < bl_y < 500:
+                blink_target = (400, 100)
+            else:
+                blink_target = (player_x, player_y)
+        else:
+            blink_target = return_target
+        if not pinky_dead:
+            if 340 < pi_x < 560 and 380 < pi_y < 500:
+                pink_target = (400, 100)
+            else:
+                pink_target = (player_x, player_y)
+        else:
+            pink_target = return_target
+        if not inky_dead:
+            if 340 < in_x < 560 and 380 < in_y < 500:
+                ink_target = (400, 100)
+            else:
+                ink_target = (player_x, player_y)
+        else:
+            ink_target = return_target
+        if not clyde_dead:
+            if 340 < cl_x < 560 and 380 < cl_y < 500:
+                clyd_target = (400, 100)
+            else:
+                clyd_target = (player_x, player_y)
+        else:
+            clyd_target = return_target
+
+    return [blink_target, pink_target, ink_target, clyd_target]
+
 # game loop
 run = True
 while run:
@@ -479,7 +538,7 @@ while run:
     clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed, clyde_img, clyde_direction, clyde_dead, clyde_box, 3)
 
     draw_misc()
-
+    targets = get_targets(blinky_x, blinky_y, pinky_x, pinky_y, inky_x, inky_y, clyde_x, clyde_y)
     center_x = player_x + 23
     center_y = player_y + 24
     turns_allowed = check_position(center_x, center_y)
