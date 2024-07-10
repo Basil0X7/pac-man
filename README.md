@@ -1,5 +1,8 @@
 # pac man
 its old game we all played before 
+
+![Screenshot 2024-07-10 162730](https://github.com/Basil0X7/pac-man/assets/116971576/a74de635-faeb-46b5-abdb-6ae212ef8bb2)
+
 # The ideas of ​​the game
 1- eat all pellets that player have to do it \
 2- let ghost catch pac man before he eats all pellets \
