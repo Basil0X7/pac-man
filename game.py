@@ -55,7 +55,7 @@ flicker = False
 turns_allowed = [False, False, False, False]
 direction_command = 0
 player_speed = 2
-ghost_speed = 2
+ghost_speed = [2, 2, 2, 2]
 score = 0
 monster_up = False
 monster_counter = 0
@@ -247,15 +247,16 @@ class Ghost:
                 elif self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
                 elif self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-                elif self.turns[1]:
-                    self.direct = 1
-                    self.x_pos -= self.speed
+
             elif self.turns[2]:
                 self.y_pos -= self.speed
         elif self.direct == 3:
@@ -315,7 +316,9 @@ class Ghost:
             elif self.turns[0]:
                 self.x_pos += self.speed
         elif self.direct == 1:
-            if self.target[0] < self.x_pos and self.turns[1]:
+            if self.target[1] > self.y_pos and self.turns[3]:
+                self.direct = 3
+            elif self.target[0] < self.x_pos and self.turns[1]:
                 self.x_pos -= self.speed
             elif not self.turns[1]:
                 if self.target[1] > self.y_pos and self.turns[3]:
@@ -339,7 +342,10 @@ class Ghost:
             elif self.turns[1]:
                 self.x_pos -= self.speed
         elif self.direct == 2:
-            if self.target[1] < self.y_pos and self.turns[2]:
+            if self.target[0] < self.x_pos and self.turns[1]:
+                self.direct = 1
+                self.x_pos -= self.speed
+            elif self.target[1] < self.y_pos and self.turns[2]:
                 self.direct = 2
                 self.y_pos -= self.speed
             elif not self.turns[2]:
@@ -352,17 +358,24 @@ class Ghost:
                 elif self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
                 elif self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-                elif self.turns[1]:
+            elif self.turns[2]:
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
-            elif self.turns[2]:
-                self.y_pos -= self.speed
+                else:
+                    self.y_pos -= self.speed
         elif self.direct == 3:
             if self.target[1] > self.y_pos and self.turns[3]:
                 self.y_pos += self.speed
@@ -379,14 +392,21 @@ class Ghost:
                 elif self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
-                elif self.turns[0]:
-                    self.direct = 0
-                    self.x_pos += self.speed
                 elif self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
             elif self.turns[3]:
-                self.y_pos += self.speed
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                else:
+                    self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
         elif self.x_pos > 900:
@@ -418,9 +438,18 @@ class Ghost:
                     self.direct = 1
                     self.x_pos -= self.speed
             elif self.turns[0]:
-                self.x_pos += self.speed
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                if self.target[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos += self.speed
         elif self.direct == 1:
-            if self.target[0] < self.x_pos and self.turns[1]:
+            if self.target[1] > self.y_pos and self.turns[3]:
+                self.direct = 3
+            elif self.target[0] < self.x_pos and self.turns[1]:
                 self.x_pos -= self.speed
             elif not self.turns[1]:
                 if self.target[1] > self.y_pos and self.turns[3]:
@@ -442,7 +471,14 @@ class Ghost:
                     self.direct = 0
                     self.x_pos += self.speed
             elif self.turns[1]:
-                self.x_pos -= self.speed
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                if self.target[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos -= self.speed
         elif self.direct == 2:
             if self.target[1] < self.y_pos and self.turns[2]:
                 self.direct = 2
@@ -457,15 +493,15 @@ class Ghost:
                 elif self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
                 elif self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-                elif self.turns[1]:
-                    self.direct = 1
-                    self.x_pos -= self.speed
             elif self.turns[2]:
                 self.y_pos -= self.speed
         elif self.direct == 3:
@@ -484,12 +520,12 @@ class Ghost:
                 elif self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
-                elif self.turns[0]:
-                    self.direct = 0
-                    self.x_pos += self.speed
                 elif self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
             elif self.turns[3]:
                 self.y_pos += self.speed
         if self.x_pos < -30:
@@ -523,9 +559,18 @@ class Ghost:
                     self.direct = 1
                     self.x_pos -= self.speed
             elif self.turns[0]:
-                self.x_pos += self.speed
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                if self.target[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos += self.speed
         elif self.direct == 1:
-            if self.target[0] < self.x_pos and self.turns[1]:
+            if self.target[1] > self.y_pos and self.turns[3]:
+                self.direct = 3
+            elif self.target[0] < self.x_pos and self.turns[1]:
                 self.x_pos -= self.speed
             elif not self.turns[1]:
                 if self.target[1] > self.y_pos and self.turns[3]:
@@ -547,9 +592,19 @@ class Ghost:
                     self.direct = 0
                     self.x_pos += self.speed
             elif self.turns[1]:
-                self.x_pos -= self.speed
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direct = 3
+                    self.y_pos += self.speed
+                if self.target[1] < self.y_pos and self.turns[2]:
+                    self.direct = 2
+                    self.y_pos -= self.speed
+                else:
+                    self.x_pos -= self.speed
         elif self.direct == 2:
-            if self.target[1] < self.y_pos and self.turns[2]:
+            if self.target[0] < self.x_pos and self.turns[1]:
+                self.direct = 1
+                self.x_pos -= self.speed
+            elif self.target[1] < self.y_pos and self.turns[2]:
                 self.direct = 2
                 self.y_pos -= self.speed
             elif not self.turns[2]:
@@ -562,17 +617,24 @@ class Ghost:
                 elif self.target[1] > self.y_pos and self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
+                elif self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
                 elif self.turns[3]:
                     self.direct = 3
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direct = 0
                     self.x_pos += self.speed
-                elif self.turns[1]:
+            elif self.turns[2]:
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
-            elif self.turns[2]:
-                self.y_pos -= self.speed
+                else:
+                    self.y_pos -= self.speed
         elif self.direct == 3:
             if self.target[1] > self.y_pos and self.turns[3]:
                 self.y_pos += self.speed
@@ -589,14 +651,21 @@ class Ghost:
                 elif self.turns[2]:
                     self.direct = 2
                     self.y_pos -= self.speed
-                elif self.turns[0]:
-                    self.direct = 0
-                    self.x_pos += self.speed
                 elif self.turns[1]:
                     self.direct = 1
                     self.x_pos -= self.speed
+                elif self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
             elif self.turns[3]:
-                self.y_pos += self.speed
+                if self.target[0] > self.x_pos and self.turns[0]:
+                    self.direct = 0
+                    self.x_pos += self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direct = 1
+                    self.x_pos -= self.speed
+                else:
+                    self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
         elif self.x_pos > 900:
@@ -662,7 +731,7 @@ def draw_board():
                 pygame.draw.arc(screen, color, [(j * num2 - (num2 * 0.4)), (i * num1 - (num1 * 0.4)), num2, num1],
                                 3 * PI / 2, 2 * PI, 3)
             if level[i][j] == 9:
-                pygame.draw.line(screen, color, (j * num2, i * num1 + (0.5 * num2)),
+                pygame.draw.line(screen, "red", (j * num2, i * num1 + (0.5 * num2)),
                                  (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
 
 
@@ -748,45 +817,68 @@ def get_targets(bl_x, bl_y, pi_x, pi_y, in_x, in_y, cl_x, cl_y):
         runaway_y = 0
     return_target = (300, 400)
     if monster_up:
-        if not blinky_dead:
+        if not blinky.dead and not eaten_ghosts[0]:
             blink_target = (runaway_x, runaway_y)
-        else:
-            blink_target = return_target
-        if not pinky_dead:
-            pink_target = (runaway_x, runaway_y)
-        else:
-            pink_target = return_target
-        if not inky_dead:
-            ink_target = (runaway_x, runaway_y)
-        else:
-            ink_target = return_target
-        if not clyde_dead:
-            clyd_target = (450, 450)
-        else:
-            clyd_target = return_target
-    else:
-        if not blinky_dead:
+        elif not blinky.dead and eaten_ghosts[0]:
             if 340 < bl_x < 560 and 380 < bl_y < 500:
                 blink_target = (400, 100)
             else:
                 blink_target = (player_x, player_y)
         else:
             blink_target = return_target
-        if not pinky_dead:
+
+        if not pinky.dead and not eaten_ghosts[2]:
+            pink_target = (runaway_x, runaway_y)
+        elif not pinky.dead and eaten_ghosts[2]:
             if 340 < pi_x < 560 and 380 < pi_y < 500:
                 pink_target = (400, 100)
             else:
                 pink_target = (player_x, player_y)
         else:
             pink_target = return_target
-        if not inky_dead:
+
+        if not inky.dead and not eaten_ghosts[1]:
+            ink_target = (runaway_x, runaway_y)
+        elif not inky.dead and eaten_ghosts[1]:
             if 340 < in_x < 560 and 380 < in_y < 500:
                 ink_target = (400, 100)
             else:
                 ink_target = (player_x, player_y)
         else:
             ink_target = return_target
-        if not clyde_dead:
+
+        if not clyde.dead and not eaten_ghosts[3]:
+            clyd_target = (450, 450)
+        elif not clyde.dead and eaten_ghosts[3]:
+            if 340 < cl_x < 560 and 380 < cl_y < 500:
+                clyd_target = (400, 100)
+            else:
+                clyd_target = (player_x, player_y)
+        else:
+            clyd_target = return_target
+    else:
+        if not blinky.dead:
+            if 340 < bl_x < 560 and 380 < bl_y < 500:
+                blink_target = (400, 100)
+            else:
+                blink_target = (player_x, player_y)
+        else:
+            blink_target = return_target
+        if not pinky.dead:
+            if 340 < pi_x < 560 and 380 < pi_y < 500:
+                pink_target = (400, 100)
+            else:
+                pink_target = (player_x, player_y)
+        else:
+            pink_target = return_target
+        if not inky.dead:
+            if 340 < in_x < 560 and 380 < in_y < 500:
+                ink_target = (400, 100)
+            else:
+                ink_target = (player_x, player_y)
+        else:
+            ink_target = return_target
+        if not clyde.dead:
             if 340 < cl_x < 560 and 380 < cl_y < 500:
                 clyd_target = (400, 100)
             else:
@@ -826,11 +918,31 @@ while run:
     center_y = player_y + 24
     player_circle = pygame.draw.circle(screen, 0, (center_x, center_y), 20, 2)
     draw_player()
-    blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed, blinky_img, blinky_direction, blinky_dead, blinky_box,
-                   0)
-    inky = Ghost(inky_x, inky_y, targets[1], ghost_speed, inky_img, inky_direction, inky_dead, inky_box, 1)
-    pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speed, pinky_img, pinky_direction, pinky_dead, pinky_box, 2)
-    clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed, clyde_img, clyde_direction, clyde_dead, clyde_box, 3)
+    if monster_up:
+        ghost_speed = [1, 1, 1, 1]
+        if blinky_dead:
+            ghost_speed[0] = 3
+        if inky_dead:
+            ghost_speed[1] = 3
+        if pinky_dead:
+            ghost_speed[2] = 3
+        if clyde_dead:
+            ghost_speed[3] = 3
+    else:
+        ghost_speed = [2, 2, 2, 2]
+        if blinky_dead:
+            ghost_speed[0] = 3
+        if inky_dead:
+            ghost_speed[1] = 3
+        if pinky_dead:
+            ghost_speed[2] = 3
+        if clyde_dead:
+            ghost_speed[3] = 3
+
+    blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed[0], blinky_img, blinky_direction, blinky_dead, blinky_box, 0)
+    inky = Ghost(inky_x, inky_y, targets[1], ghost_speed[1], inky_img, inky_direction, inky_dead, inky_box, 1)
+    pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speed[2], pinky_img, pinky_direction, pinky_dead, pinky_box, 2)
+    clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed[3], clyde_img, clyde_direction, clyde_dead, clyde_box, 3)
 
     draw_misc()
     targets = get_targets(blinky_x, blinky_y, pinky_x, pinky_y, inky_x, inky_y, clyde_x, clyde_y)
