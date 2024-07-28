@@ -43,7 +43,13 @@ It is easier said than done, Trust me.
 
 ### check_position
 
--
+- know the direction for the player
+
+### move_player
+
+- when player take direction up for exaple this function let player move in that direction if it can be
+
+### 
 
 
 # Current game mode
