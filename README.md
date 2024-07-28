@@ -13,6 +13,43 @@ its old game we all played before
 It is a road or a path through which Pac-Man and the ghosts can walk. \
 It is numbers that you,through the pygame library, convert each number to either a line, a quarter circle, or an big and small pellets.
 
+# fanctions
+
+### check_collisions
+
+- its let pac-man eat small pilets and big one
+- if pac-man eat big pilets its turns up to monster and can eat ghosts
+
+### draw_misc
+
+- draw score
+- if you eat big pilets its give you blue circle to let you now you are monster now 
+- draw lives icone
+
+### draw_board
+
+- draw evry pilets small one and big one (add andreo tat here)
+- draw evry line and corners
+
+### draw_player
+
+- draw player in evry direction he go to (up, down, left, right)
+
+### check_position
+
+- know the direction for the player
+
+### move_player
+
+- when player take direction up for exaple this function let player move in that direction if it can be
+
+### get_targets
+
+- let player thake the portels in the board
+- let ghost target be the player if thay are alive and the plyer is not monster
+- let ghost runaway from player if he is a monster if thay are not eaten
+- let ghost go to the box if thay are have eaten from monster
+
 # ghost class
 
 It was the hardest part, as I am still a beginner in pygame and games in general (im a gamer by the way), \
@@ -54,44 +91,6 @@ if you open those functions you will see thay have a lot of if statment ?
 - To cover all the possibilities of where the ghost might be and where it might move from its current location
 
 In conclusion, this is just a simplified explanation of what is inside the ghost class. If you open it, you will see and understand it well (I don’t like talking, I like application).
-
-
-# fanctions
-
-### check_collisions
-
-- its let pac-man eat small pilets and big one
-- if pac-man eat big pilets its turns up to monster and can eat ghosts
-
-### draw_misc
-
-- draw score
-- if you eat big pilets its give you blue circle to let you now you are monster now 
-- draw lives icone
-
-### draw_board
-
-- draw evry pilets small one and big one (add andreo tat here)
-- draw evry line and corners
-
-### draw_player
-
-- draw player in evry direction he go to (up, down, left, right)
-
-### check_position
-
-- know the direction for the player
-
-### move_player
-
-- when player take direction up for exaple this function let player move in that direction if it can be
-
-### get_targets
-
-- let player thake the portels in the board
-- let ghost target be the player if thay are alive and the plyer is not monster
-- let ghost runaway from player if he is a monster if thay are not eaten
-- let ghost go to the box if thay are have eaten from monster
 
 # Current game mode
 
