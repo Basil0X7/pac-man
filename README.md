@@ -50,7 +50,7 @@ It is numbers that you,through the pygame library, convert each number to either
 - let ghost runaway from player if he is a monster if thay are not eaten
 - let ghost go to the box if thay are have eaten from monster
 
-# ghost class
+## ghost class
 
 It was the hardest part, as I am still a beginner in pygame and games in general (im a gamer by the way), \
 so I had to identify the places where the ghost could walk in and then make him track Pac-Man. \
