@@ -52,8 +52,6 @@ It is numbers that you,through the pygame library, convert each number to either
 
 ## ghost class
 
-It was the hardest part, as I am still a beginner in pygame and games in general (im a gamer by the way), \
-so I had to identify the places where the ghost could walk in and then make him track Pac-Man. \
 It is easier said than done, Trust me.
 
 ### def __init__
