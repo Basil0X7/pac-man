@@ -49,8 +49,12 @@ It is easier said than done, Trust me.
 
 - when player take direction up for exaple this function let player move in that direction if it can be
 
-### 
+### get_targets
 
+- let player thake the portels in the board
+- let ghost target be the player if thay are alive and the plyer is not monster
+- let ghost runaway from player if he is a monster if thay are not eaten
+- let ghost go to the box if thay are have eaten from monster
 
 # Current game mode
 
