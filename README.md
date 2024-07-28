@@ -45,7 +45,15 @@ evry ghost have :
 - let the ghost know he can go (up, down, left, right) now or he can't
 like if he's direction is left or righte he can go up or down if it possible in the board
 
-### 
+### move_blinky, move_pinky, move_inky, move_clyde
+
+those functions in class are maked to 
+- let four ghost maving in the direction that thay are takes
+- let four use the portel in the board
+if you open those functions you will see thay have a lot of if statment ?
+- To cover all the possibilities of where the ghost might be and where it might move from its current location
+
+In conclusion, this is just a simplified explanation of what is inside the ghost class. If you open it, you will see and understand it well (I don’t like talking, I like application).
 
 
 # fanctions
