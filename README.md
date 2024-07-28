@@ -21,26 +21,29 @@ It is easier said than done, Trust me.
 
 # fanctions
 
-## check_collisions
+### check_collisions
 
 - its let pac-man eat small pilets and big one
 - if pac-man eat big pilets its turns up to monster and can eat ghosts
 
-## draw_misc
+### draw_misc
 
 - draw score
 - if you eat big pilets its give you blue circle to let you now you are monster now 
 - draw lives icone
 
-## draw_board
+### draw_board
 
 - draw evry pilets small one and big one (add andreo tat here)
 - draw evry line and corners
 
-## draw_player
+### draw_player
 
-- 
+- draw player in evry direction he go to (up, down, left, right)
 
+### check_position
+
+-
 
 
 # Current game mode
