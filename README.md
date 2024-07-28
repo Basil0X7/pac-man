@@ -19,6 +19,35 @@ It was the hardest part, as I am still a beginner in pygame and games in general
 so I had to identify the places where the ghost could walk in and then make him track Pac-Man. \
 It is easier said than done, Trust me.
 
+### def __init__
+
+evry ghost have :
+- posetion x in board
+- posetion y in board
+- target go to it
+- speed
+- img
+- direction
+- if he is dead
+- if he in box
+- id
+
+### draw
+
+- draw the ghost if thay are not scared of monster and not dead
+- draw the ghost if thay are scared of monster and not dead
+- draw the ghost if thay are dead
+
+### check_collisions
+
+- let you know if the ghost in box or not
+- let the ghost know where he can go or not go
+- let the ghost know he can go (up, down, left, right) now or he can't
+like if he's direction is left or righte he can go up or down if it possible in the board
+
+### 
+
+
 # fanctions
 
 ### check_collisions
